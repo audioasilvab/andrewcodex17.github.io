@@ -38,8 +38,8 @@ var map = [
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,1,1,1,1],
     [0,0,0,0,0,0,0,0,0,0],
-    [1,1,0,0,0,0,0,0,0,0],
-    [1,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,1,1,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0],
@@ -62,7 +62,7 @@ function create ()
 
     platforms = this.physics.add.staticGroup();
 
-    player = this.physics.add.sprite(100, 0, 'player');
+    player = this.physics.add.sprite(100, -100, 'player');
     player.setBounce(0.2);
     player.setCollideWorldBounds(false); //evita sacarlo de la pantalla
 
