@@ -89,9 +89,9 @@ function create ()
 
 function update ()
 {
-    if (true)
+    /*if (true)
 {
-    player.setVelocityX(-160);
+    //player.setVelocityX(-160);
     //player.setFlipX(true);
 
     if (player.body.touching.down) {
@@ -102,7 +102,8 @@ function update ()
         }
     }
 }
-else if (cursors.right.isDown)
+else */
+    if (cursors.right.isDown)
 {
     player.setVelocityX(160);
     player.setFlipX(false);
@@ -114,15 +115,12 @@ else if (cursors.right.isDown)
             player.setVelocityY(-440);
         }
     }
-}
-else
-{
-    player.setVelocityX(0);
-}
-
-if (cursors.up.isDown && player.body.touching.down)
+} else if (cursors.up.isDown && player.body.touching.down)
 {
     player.setVelocityY(-440);
+} else
+{
+    player.setVelocityX(0);
 }
 
 }
