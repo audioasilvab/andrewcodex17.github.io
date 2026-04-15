@@ -34,17 +34,17 @@ var config = {
 
 var game = new Phaser.Game(config);
 var map = [
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,1,1,1,1],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,1,1,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1]
-]
+];
 var platforms, player, cursors, camera;
 
 function preload ()
@@ -62,7 +62,7 @@ function create ()
 
     platforms = this.physics.add.staticGroup();
 
-    player = this.physics.add.sprite(100, -100, 'player');
+    player = this.physics.add.sprite(100, 100, 'player');
     player.setBounce(0.2);
     player.setCollideWorldBounds(false); //evita sacarlo de la pantalla
 
@@ -80,54 +80,30 @@ function create ()
 
     camera = this.cameras.main;
     camera.startFollow(player);
-    camera.setBounds(0, 0, 2000, 600);
+    camera.setBounds(0, 0, 1500, 1500);
     camera.setLerp(0.1, 0.1);
     camera.setZoom(1.25);
     //camera.setBackgroundColor('#2c3e50');
     //camera.setAlpha(0.8);
 }
 
-function update ()
-{
-    /*if (true)
-{
-    //player.setVelocityX(-160);
-    //player.setFlipX(true);
-
-    if (player.body.touching.down) {
-        player.setVelocityY(-70);  
-
-        if (cursors.up.isDown && player.body.touching.down) {
-            player.setVelocityY(-440);
-        }
-    }
-}
-else */
-    if (cursors.right.isDown) {
-        player.setVelocityX(160);
-        player.setFlipX(false);
-    
-        if (player.body.touching.down) {
-            player.setVelocityY(-70); 
-        
-            if (cursors.up.isDown && player.body.touching.down) {
-                player.setVelocityY(-440);
-            }
-        }
-    } if (cursors.left.isDown) {
-        player.setVelocityX(-160);
+function update() {
+    // Movimiento con aceleración
+    if (cursors.left.isDown) {
+        player.setVelocityX(Math.max(-200, player.body.velocity.x - 20));
         player.setFlipX(true);
-    
-        if (player.body.touching.down) {
-            player.setVelocityY(-70); 
-        
-            if (cursors.up.isDown && player.body.touching.down) {
-                player.setVelocityY(-440);
-            }
-        }
-    } else if (cursors.up.isDown && player.body.touching.down) {
+    } 
+    else if (cursors.right.isDown) {
+        player.setVelocityX(Math.min(200, player.body.velocity.x + 20));
+        player.setFlipX(false);
+    } 
+    else {
+        // Desaceleración
+        player.setVelocityX(player.body.velocity.x * 0.7);
+    }
+
+    // Salto
+    if (cursors.up.isDown && player.body.touching.down) {
         player.setVelocityY(-440);
-    } else {
-        player.setVelocityX(0);
     }
 }
