@@ -125,7 +125,7 @@ else */
                 player.setVelocityY(-440);
             }
         }
-    } else if (cursors.up.isDown) {
+    } else if (cursors.up.isDown && player.body.touching.down) {
         player.setVelocityY(-440);
     } else {
         player.setVelocityX(0);
