@@ -82,7 +82,7 @@ function create ()
     camera.startFollow(player);
     camera.setBounds(0, 0, 2000, 600);
     camera.setLerp(0.1, 0.1);
-    camera.setZoom(1.5);
+    camera.setZoom(1.25);
     //camera.setBackgroundColor('#2c3e50');
     //camera.setAlpha(0.8);
 }
@@ -103,24 +103,31 @@ function update ()
     }
 }
 else */
-    if (cursors.right.isDown)
-{
-    player.setVelocityX(160);
-    player.setFlipX(false);
+    if (cursors.right.isDown) {
+        player.setVelocityX(160);
+        player.setFlipX(false);
     
-    if (player.body.touching.down) {
-        player.setVelocityY(-70); 
+        if (player.body.touching.down) {
+            player.setVelocityY(-70); 
         
-        if (cursors.up.isDown && player.body.touching.down) {
-            player.setVelocityY(-440);
+            if (cursors.up.isDown && player.body.touching.down) {
+                player.setVelocityY(-440);
+            }
         }
+    } if (cursors.left.isDown) {
+        player.setVelocityX(-160);
+        player.setFlipX(true);
+    
+        if (player.body.touching.down) {
+            player.setVelocityY(-70); 
+        
+            if (cursors.up.isDown && player.body.touching.down) {
+                player.setVelocityY(-440);
+            }
+        }
+    } else if (cursors.up.isDown) {
+        player.setVelocityY(-440);
+    } else {
+        player.setVelocityX(0);
     }
-} else if (cursors.up.isDown && player.body.touching.down)
-{
-    player.setVelocityY(-440);
-} else
-{
-    player.setVelocityX(0);
-}
-
 }
