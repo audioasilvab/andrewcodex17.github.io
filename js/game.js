@@ -92,7 +92,7 @@ function update ()
     if (true)
 {
     player.setVelocityX(-160);
-    player.setFlipX(true);
+    //player.setFlipX(true);
 
     if (player.body.touching.down) {
         player.setVelocityY(-70);  
